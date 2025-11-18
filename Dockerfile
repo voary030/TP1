@@ -1,53 +1,37 @@
-# Exemple de Dockerfile pour Node.js (Express)
-# Adapter selon votre technologie (Python/Flask, Java/Spring, PHP, etc.)
-
-FROM node:18-alpine
-
-# Créer le répertoire de l'application
+# Build stage
+FROM maven:3.9-eclipse-temurin-17 AS build
 WORKDIR /app
 
-# Copier package.json et package-lock.json
-COPY package*.json ./
+# Copy Maven files for dependency resolution
+COPY pom.xml .
+RUN mvn dependency:go-offline -B
 
-# Installer les dépendances
-RUN npm install --production
+# Copy source code and build
+COPY src ./src
+RUN mvn clean package -DskipTests
 
-# Copier le code source
-COPY . .
+# Runtime stage
+FROM eclipse-temurin:17-jre-alpine
+WORKDIR /app
 
-# Exposer le port
+# Create non-root user for security
+RUN addgroup -S spring && adduser -S spring -G spring
+USER spring:spring
+
+# Copy JAR from build stage
+COPY --from=build /app/target/*.jar app.jar
+
+# Expose port
 EXPOSE 3000
 
-# Démarrer l'application
-CMD ["npm", "start"]
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=40s --retries=3 \
+  CMD wget --no-verbose --tries=1 --spider http://localhost:3000/actuator/health || exit 1
 
-
-# ===============================================
-# Pour Python/Flask, utiliser plutôt :
-# ===============================================
-# FROM python:3.11-slim
-#
-# WORKDIR /app
-#
-# COPY requirements.txt .
-# RUN pip install --no-cache-dir -r requirements.txt
-#
-# COPY . .
-#
-# EXPOSE 5000
-#
-# CMD ["python", "app.py"]
-
-
-# ===============================================
-# Pour Java/Spring Boot, utiliser plutôt :
-# ===============================================
-# FROM openjdk:17-slim
-#
-# WORKDIR /app
-#
-# COPY target/*.jar app.jar
-#
-# EXPOSE 8080
-#
-# ENTRYPOINT ["java", "-jar", "app.jar"]
+# Run the application with optimized JVM settings
+ENTRYPOINT ["java", \
+    "-XX:+UseContainerSupport", \
+    "-XX:MaxRAMPercentage=75.0", \
+    "-Djava.security.egd=file:/dev/./urandom", \
+    "-jar", \
+    "app.jar"]
