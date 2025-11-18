@@ -1,0 +1,71 @@
+TO-DO LIST - TP Compléments Web Services
+
+## TP1c - ENDPOINT: Authentication
+
+POST /api/auth/login
+  -Créer endpoint de login
+  -Valider email/mot de passe
+  -Générer token JWT/session
+  -Retourner token au format JSON avec status, data, error
+  -Gérer erreur: utilisateur inexistant
+  -Gérer erreur: mot de passe incorrect
+  -Gérer erreur: connexion BD
+  -Implémenter middleware de vérification token
+  -Ajouter expiration au token
+
+
+## TP1a - ENDPOINT: Notes par Semestre
+
+GET /api/notes/semestre/{idSemestre}
+  -Créer endpoint
+  -Valider le token (middleware)
+  -Récupérer les notes de l'étudiant pour 1 semestre
+  -Formatter réponse: { status, data, error, meta }
+  -Utiliser camelCase dans JSON
+  -Gérer erreur: étudiant n'existe pas
+  -Gérer erreur: semestre inexistant
+  -Gérer erreur: connexion BD
+  -Gérer erreur: utilisateur non authentifié
+
+
+## TP1a - ENDPOINT: Notes par Année
+
+GET /api/notes/annee/{annee}
+  -Créer endpoint (ex: /api/notes/annee/L1)
+  -Valider le token (middleware)
+  -Récupérer les notes de tous les semestres de l'année
+  -Formatter réponse: { status, data, error, meta }
+  -Utiliser camelCase dans JSON
+  -Grouper notes par semestre
+  -Gérer erreur: étudiant n'existe pas
+  -Gérer erreur: année inexistante
+  -Gérer erreur: connexion BD
+  -Gérer erreur: utilisateur non authentifié
+
+
+## TP1b - GESTION DES ERREURS
+
+  -Définir codes d'erreur internes
+  -Implémenter handler global d'erreurs
+  -Tests: étudiant inexistant
+  -Tests: connexion BD échouée
+  -Tests: erreur imprévue
+  -Formater tous les messages d'erreur en JSON
+
+
+## INFRASTRUCTURE & CONFIGURATION
+
+  -Mettre en place structure du projet
+  -Configurer BD (MySQL/PostgreSQL)
+  -Créer docker-compose.yml
+  -Créer .env pour variables d'environnement
+  -Initialiser la BD avec le script SQL
+  -Créer collection Postman complète
+
+
+## FORMAT JSON STANDARD
+
+  -Status: "success" ou "error"
+  -Data: données requêtées (camelCase)
+  -Error: { code, message }
+  -Meta: infos optionnelles (nb résultats, etc.)
