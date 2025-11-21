@@ -411,7 +411,7 @@ cd WS_ETU003103_ETU003248
 
 ### Avec le frontend
 ```
-http://localhost:8080
+http://localhost:8060
 ```
 
 ---

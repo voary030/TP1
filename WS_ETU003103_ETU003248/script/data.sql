@@ -146,8 +146,8 @@ INSERT INTO matiere_parcours (id_matiere, id_parcours, id_type_matiere, date_deb
 
 -- Insertion des utilisateurs admin
 INSERT INTO user (id_user, nom, prenom, email, mot_de_passe, role, est_actif, date_creation) VALUES
-(1, 'Admin', 'Système', 'admin@univ.mg', 'adminpass', 'ADMIN', true, NOW()),
-(2, 'Directeur', 'Pédagogique', 'directeur@univ.mg', 'dirpass', 'ADMIN', true, NOW());
+(1, 'Admin', 'Système', 'admin@univ.mg', 'AdminPass123!', 'ADMIN', true, NOW()),
+(2, 'Secrétaire', 'Bureau', 'secretaire@univ.mg', 'SecPass123!', 'USER', true, NOW());
 
 INSERT INTO Etudiant (id_etudiant, nom, prenom, date_naissance, email, mot_de_passe, id_user_createur, date_inscription) VALUES
 (1, 'Rakoto', 'Jean', '2002-05-15', 'jean.rakoto@univ.mg', 'jeanpass', 1, NOW()),

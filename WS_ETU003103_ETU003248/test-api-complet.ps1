@@ -118,7 +118,7 @@ Write-Host " Tests termines!" -ForegroundColor Cyan
 Write-Host "========================================" -ForegroundColor Cyan
 Write-Host ""
 Write-Host "Pour tester via le frontend:" -ForegroundColor Yellow
-Write-Host "  1. Ouvrir http://localhost:8080" -ForegroundColor White
+Write-Host "  1. Ouvrir http://localhost:8060" -ForegroundColor White
 Write-Host "  2. Se connecter avec:" -ForegroundColor White
 Write-Host "     Email: $email" -ForegroundColor White
 Write-Host "     Password: $password" -ForegroundColor White

@@ -4,7 +4,7 @@
 
 - [ ] Docker Desktop installé et démarré
 - [ ] Git installé (optionnel)
-- [ ] Ports 3000, 3306, 8080 disponibles
+- [ ] Ports 3000, 3306, 8060 disponibles
 - [ ] Au moins 4GB RAM disponible
 - [ ] Connexion Internet pour télécharger les images Docker
 
@@ -25,7 +25,7 @@
 ### Frontend Vue.js
 - [ ] Frontend construit sans erreur
 - [ ] Nginx démarre correctement
-- [ ] Frontend accessible sur http://localhost:8080
+- [ ] Frontend accessible sur http://localhost:8060
 - [ ] Pas d'erreur console JavaScript
 
 ### Base de Données

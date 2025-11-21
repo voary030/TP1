@@ -21,12 +21,12 @@
 					"raw": "{\n    \"email\": \"jean.rakoto@univ.mg\",\n    \"password\": \"jeanpass\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/auth/login",
+					"raw": "http://localhost:8060/api/auth/login",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8060",
 					"path": [
 						"api",
 						"auth",
@@ -51,12 +51,12 @@
 					"raw": "{\n    \"email\": \"admin@univ.mg\",\n    \"mot_de_passe\": \"adminpass\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/auth/admin/login",
+					"raw": "http://localhost:8060/api/auth/admin/login",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8060",
 					"path": [
 						"api",
 						"auth",
@@ -79,12 +79,12 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:8080/api/grades/semester/1/student/1",
+					"raw": "http://localhost:8060/api/grades/semester/1/student/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8060",
 					"path": [
 						"api",
 						"grades",
@@ -117,12 +117,12 @@
 					"raw": "{\n    \"numero\": \"ETU004\",\n    \"nom\": \"Razafy\",\n    \"prenom\": \"Sophie\",\n    \"email\": \"sophie.razafy@univ.mg\",\n    \"mot_de_passe\": \"sophiepass\",\n    \"id_parcours\": 1\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/admin/students",
+					"raw": "http://localhost:8060/api/admin/students",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8060",
 					"path": [
 						"api",
 						"admin",
@@ -144,12 +144,12 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:8080/api/admin/students/1/grades",
+					"raw": "http://localhost:8060/api/admin/students/1/grades",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8060",
 					"path": [
 						"api",
 						"admin",
@@ -173,12 +173,12 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:8080/api/admin/students/all-grades",
+					"raw": "http://localhost:8060/api/admin/students/all-grades",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8060",
 					"path": [
 						"api",
 						"admin",
@@ -201,12 +201,12 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:8080/api/admin/students/all-grades?semestre=1",
+					"raw": "http://localhost:8060/api/admin/students/all-grades?semestre=1",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8060",
 					"path": [
 						"api",
 						"admin",
@@ -235,12 +235,12 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:8080/api/admin/students/all-grades?annee=1",
+					"raw": "http://localhost:8060/api/admin/students/all-grades?annee=1",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8060",
 					"path": [
 						"api",
 						"admin",

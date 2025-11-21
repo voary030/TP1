@@ -184,7 +184,7 @@ vue-project/
 
 1. Ouvrir un terminal dans `WS_ETU003103_ETU003248`
 2. Exécuter : `start.bat` (Windows) ou `docker-compose up --build`
-3. Ouvrir http://localhost:8080
+3. Ouvrir http://localhost:8060
 4. Se connecter avec :
    - Email: jean.rakoto@univ.mg
    - Password: ETU003103

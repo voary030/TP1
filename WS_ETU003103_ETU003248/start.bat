@@ -44,7 +44,7 @@ echo ========================================
 echo  Application demarree avec succes!
 echo ========================================
 echo.
-echo Frontend Vue.js : http://localhost:8080
+echo Frontend Vue.js : http://localhost:8060
 echo API Spring Boot : http://localhost:3000
 echo Base de donnees  : localhost:3306
 echo.

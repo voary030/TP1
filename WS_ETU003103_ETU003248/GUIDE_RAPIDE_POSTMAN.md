@@ -18,7 +18,7 @@ Fichier : `postman/notes-api-complete-avec-vues.postman_collection.json`
 
 #### A. Login Étudiant
 ```
-POST http://localhost:8080/api/auth/login
+POST http://localhost:8060/api/auth/login
 Body:
 {
     "email": "jean.rakoto@univ.mg",
@@ -29,7 +29,7 @@ Body:
 
 #### B. Login Admin
 ```
-POST http://localhost:8080/api/auth/admin/login
+POST http://localhost:8060/api/auth/admin/login
 Body:
 {
     "email": "admin@univ.mg",
@@ -42,19 +42,19 @@ Body:
 
 #### Mes Notes Détaillées
 ```
-GET http://localhost:8080/api/vue-notes/mes-notes
+GET http://localhost:8060/api/vue-notes/mes-notes
 Header: Authorization: Bearer {{studentToken}}
 ```
 
 #### Mes Moyennes
 ```
-GET http://localhost:8080/api/vue-notes/mes-moyennes
+GET http://localhost:8060/api/vue-notes/mes-moyennes
 Header: Authorization: Bearer {{studentToken}}
 ```
 
 #### Mes Notes par Semestre
 ```
-GET http://localhost:8080/api/vue-notes/mes-notes/semestre/1
+GET http://localhost:8060/api/vue-notes/mes-notes/semestre/1
 Header: Authorization: Bearer {{studentToken}}
 ```
 
@@ -62,25 +62,25 @@ Header: Authorization: Bearer {{studentToken}}
 
 #### Toutes les Notes
 ```
-GET http://localhost:8080/api/vue-notes/admin/notes
+GET http://localhost:8060/api/vue-notes/admin/notes
 Header: Authorization: Bearer {{adminToken}}
 ```
 
 #### Toutes les Moyennes
 ```
-GET http://localhost:8080/api/vue-notes/admin/moyennes
+GET http://localhost:8060/api/vue-notes/admin/moyennes
 Header: Authorization: Bearer {{adminToken}}
 ```
 
 #### Notes d'un Étudiant Spécifique
 ```
-GET http://localhost:8080/api/vue-notes/admin/notes/etudiant/1
+GET http://localhost:8060/api/vue-notes/admin/notes/etudiant/1
 Header: Authorization: Bearer {{adminToken}}
 ```
 
 ### 5. Créer un Nouvel Étudiant (Admin)
 ```
-POST http://localhost:8080/api/admin/students
+POST http://localhost:8060/api/admin/students
 Header: Authorization: Bearer {{adminToken}}
 Body:
 {

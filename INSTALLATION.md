@@ -30,7 +30,7 @@ docker-compose up --build
 ### Étape 3 : Accéder à l'application
 
 Ouvrir votre navigateur et aller sur :
-- **Frontend :** http://localhost:8080
+- **Frontend :** http://localhost:8060
 - **API :** http://localhost:3000
 
 ### Étape 4 : Se connecter
@@ -151,11 +151,11 @@ Les moyennes dans le tableau des étudiants sont cliquables et affichent directe
 
 ### Erreur : Port déjà utilisé
 
-**Port 8080 (Frontend) :**
+**Port 8060 (Frontend) :**
 ```bash
 # Modifier dans docker-compose.yml
 ports:
-  - "8081:80"  # Utiliser 8081 au lieu de 8080
+  - "8081:80"  # Utiliser 8081 au lieu de 8060
 ```
 
 **Port 3000 (API) :**
@@ -251,7 +251,7 @@ Avant de signaler un problème, vérifier :
 
 - [ ] Docker Desktop est installé et démarré
 - [ ] Le fichier `.env` existe et est correctement configuré
-- [ ] Les ports 3000, 3306 et 8080 sont libres
+- [ ] Les ports 3000, 3306 et 8060 sont libres
 - [ ] Les conteneurs sont tous démarrés (`docker ps`)
 - [ ] Aucune erreur dans les logs (`docker-compose logs`)
 

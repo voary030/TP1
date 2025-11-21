@@ -40,8 +40,8 @@
 
       <div class="login-info">
         <p><strong>Comptes de test :</strong></p>
-        <p>jean.rakoto@univ.mg / ETU003103</p>
-        <p>marie.rasoa@univ.mg / ETU003248</p>
+        <p>admin@univ.mg / AdminPass123!</p>
+        <p>secretaire@univ.mg / SecPass123!</p>
       </div>
     </div>
   </div>

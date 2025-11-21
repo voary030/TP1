@@ -82,8 +82,12 @@ CREATE TABLE Matiere(
    libelle VARCHAR(100),
    credit DECIMAL(3,1),
    id_semestre INT NOT NULL,
+   id_parcours INT,
+   id_type_matiere INT,
    PRIMARY KEY(id_matiere),
-   FOREIGN KEY(id_semestre) REFERENCES semestre(id_semestre)
+   FOREIGN KEY(id_semestre) REFERENCES semestre(id_semestre),
+   FOREIGN KEY(id_parcours) REFERENCES parcours(id_parcours),
+   FOREIGN KEY(id_type_matiere) REFERENCES type_matiere(id_type_matiere)
 );
 
 -- Table des types de matière
@@ -327,8 +331,8 @@ INSERT INTO matiere_parcours (id_matiere, id_parcours, id_type_matiere, date_deb
 
 -- Insertion des utilisateurs admin
 INSERT INTO user (id_user, nom, prenom, email, mot_de_passe, role, est_actif, date_creation) VALUES
-(1, 'Admin', 'Système', 'admin@univ.mg', 'adminpass', 'ADMIN', true, NOW()),
-(2, 'Directeur', 'Pédagogique', 'directeur@univ.mg', 'dirpass', 'ADMIN', true, NOW());
+(1, 'Admin', 'Système', 'admin@univ.mg', 'AdminPass123!', 'ADMIN', true, NOW()),
+(2, 'Secrétaire', 'Bureau', 'secretaire@univ.mg', 'SecPass123!', 'USER', true, NOW());
 
 INSERT INTO Etudiant (id_etudiant, nom, prenom, date_naissance, email, mot_de_passe, id_user_createur, date_inscription) VALUES
 (1, 'Rakoto', 'Jean', '2002-05-15', 'jean.rakoto@univ.mg', 'jeanpass', 1, NOW()),

@@ -163,12 +163,12 @@ npm run preview  # Prévisualiser la prod
 # Windows
 netstat -ano | findstr :3000
 netstat -ano | findstr :3306
-netstat -ano | findstr :8080
+netstat -ano | findstr :8060
 
 # Mac/Linux
 lsof -i :3000
 lsof -i :3306
-lsof -i :8080
+lsof -i :8060
 ```
 
 ### Libérer un port (Windows)
@@ -239,7 +239,7 @@ mvn spring-boot:run
 - Base de données: localhost:3306
 
 ### Production (avec Docker)
-- Frontend: http://localhost:8080
+- Frontend: http://localhost:8060
 - API: http://localhost:3000
 - Base de données: localhost:3306
 

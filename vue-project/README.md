@@ -44,7 +44,7 @@ docker-compose up --build
 ```
 
 L'application sera accessible sur :
-- Frontend: http://localhost:8080
+- Frontend: http://localhost:8060
 - API: http://localhost:3000
 
 ## 👤 Comptes de test

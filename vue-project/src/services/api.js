@@ -1,10 +1,10 @@
 import axios from 'axios'
 import mockApi from './mockApi'
 
-// Utiliser l'API mock en développement, sinon l'API réelle
-const USE_MOCK_API = import.meta.env.MODE === 'development'
+// Utiliser l'API mock seulement si explicitement activé via variable d'environnement
+const USE_MOCK_API = import.meta.env.VITE_USE_MOCK_API === 'true'
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8060'
 
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
@@ -46,7 +46,11 @@ export default {
       console.log('🔷 Using MOCK API for login')
       return mockApi.login(credentials)
     }
-    return apiClient.post('/api/auth/login', credentials)
+    // Utiliser l'endpoint admin pour tous les logins (car seuls les admins se connectent)
+    return apiClient.post('/api/auth/admin/login', {
+      email: credentials.email,
+      mot_de_passe: credentials.password
+    })
   },
 
   // Semesters

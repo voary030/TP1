@@ -204,14 +204,14 @@ Tous les endpoints admin vérifient :
 
 ### 1. Connexion admin
 ```bash
-curl -X POST http://localhost:8080/api/auth/admin/login \
+curl -X POST http://localhost:8060/api/auth/admin/login \
   -H "Content-Type: application/json" \
   -d '{"email":"admin@univ.mg","mot_de_passe":"adminpass"}'
 ```
 
 ### 2. Inscription d'un étudiant
 ```bash
-curl -X POST http://localhost:8080/api/admin/students \
+curl -X POST http://localhost:8060/api/admin/students \
   -H "Authorization: Bearer <token>" \
   -H "Content-Type: application/json" \
   -d '{
@@ -227,19 +227,19 @@ curl -X POST http://localhost:8080/api/admin/students \
 ### 3. Consultation des notes
 ```bash
 # Toutes les notes
-curl -X GET http://localhost:8080/api/admin/students/all-grades \
+curl -X GET http://localhost:8060/api/admin/students/all-grades \
   -H "Authorization: Bearer <token>"
 
 # Par semestre
-curl -X GET http://localhost:8080/api/admin/students/all-grades?semestre=1 \
+curl -X GET http://localhost:8060/api/admin/students/all-grades?semestre=1 \
   -H "Authorization: Bearer <token>"
 
 # Par année
-curl -X GET http://localhost:8080/api/admin/students/all-grades?annee=1 \
+curl -X GET http://localhost:8060/api/admin/students/all-grades?annee=1 \
   -H "Authorization: Bearer <token>"
 
 # Pour un étudiant spécifique
-curl -X GET http://localhost:8080/api/admin/students/1/grades \
+curl -X GET http://localhost:8060/api/admin/students/1/grades \
   -H "Authorization: Bearer <token>"
 ```
 
