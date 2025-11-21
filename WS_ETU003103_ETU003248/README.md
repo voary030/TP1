@@ -427,3 +427,9 @@ DB_PORT=3307
 ## 📧 Contact
 
 Pour toute question concernant ce TP, contactez votre enseignant.
+
+
+structure de mon projet doit suivre ceci
+Collection Postman
+Mettre login/pass par défaut dans l’url authentification.
+Repertoire projet (WS_ETU1_ETU2)
