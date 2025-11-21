@@ -74,7 +74,12 @@ const goToStudent = (studentId) => {
 }
 
 const goToSemesterGrades = (studentId, semesterId) => {
-  router.push(`/students/${studentId}/semester/${semesterId}`)
+  // Pour S4, rediriger vers la sélection du parcours
+  if (semesterId === 4) {
+    router.push(`/students/${studentId}/semester/4/select-parcours`)
+  } else {
+    router.push(`/students/${studentId}/semester/${semesterId}`)
+  }
 }
 
 onMounted(async () => {

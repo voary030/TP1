@@ -3,13 +3,30 @@
 > Projet de développement web Full Stack avec Vue.js 3 et Spring Boot  
 > **IT University Madagascar - Décembre 2024**
 
+## 🚀 Déploiement Ultra-Rapide (2 commandes)
+
+```bash
+git clone https://github.com/voary030/TP1.git
+cd TP1
+docker-compose up -d
+```
+
+**✅ C'EST TOUT ! L'application démarre automatiquement avec toutes les données.**
+
+### Accès immédiat :
+- **Frontend** : http://localhost:5173
+- **API** : http://localhost:8060
+- **Login** : `admin@univ.mg` / `AdminPass123!`
+
+---
+
 ## 📝 Description
 
 Application complète de gestion des notes étudiantes permettant aux **administrateurs** de :
 - Consulter les moyennes de tous les étudiants
 - Visualiser les relevés de notes par semestre
 - Générer des relevés annuels (L1 et L2)
-- Gérer les parcours optionnels pour le S4
+- **🆕 Choisir le parcours S4** avant de voir les notes
 - Interface inspirée des relevés officiels ITU
 
 **⚠️ Note importante:** Seuls les **administrateurs** ont accès à l'application (login). Les étudiants sont uniquement des entités de données dans le système.

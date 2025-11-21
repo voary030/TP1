@@ -88,12 +88,17 @@ export default {
   },
 
   // Grades
-  getSemesterGrades(studentId, semesterId) {
+  getSemesterGrades(studentId, semesterId, parcoursId) {
     if (USE_MOCK_API) {
       console.log('🔷 Using MOCK API for getSemesterGrades')
       return mockApi.getSemesterGrades(studentId, semesterId)
     }
-    return apiClient.get(`/api/students/${studentId}/semesters/${semesterId}/grades`)
+    // Construire l'URL avec ou sans le paramètre parcoursId
+    let url = `/api/students/${studentId}/semesters/${semesterId}/grades`
+    if (parcoursId) {
+      url += `?parcoursId=${parcoursId}`
+    }
+    return apiClient.get(url)
   },
 
   getYearGrades(studentId, yearLevel) {

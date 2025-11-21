@@ -72,8 +72,9 @@ onMounted(async () => {
   try {
     const studentId = route.params.studentId
     const semesterId = route.params.semesterId
+    const parcoursId = route.params.parcoursId // Récupérer le parcoursId si présent
     
-    const response = await api.getSemesterGrades(studentId, semesterId)
+    const response = await api.getSemesterGrades(studentId, semesterId, parcoursId)
     if (response.data.status === 'success') {
       gradesData.value = response.data.data
     }

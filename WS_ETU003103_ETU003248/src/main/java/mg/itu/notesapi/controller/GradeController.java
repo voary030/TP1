@@ -18,9 +18,10 @@ public class GradeController {
     @GetMapping("/{studentId}/semesters/{semesterId}/grades")
     public ResponseEntity<ApiResponse<SemesterGradesResponse>> getSemesterGrades(
             @PathVariable Long studentId,
-            @PathVariable Long semesterId
+            @PathVariable Long semesterId,
+            @RequestParam(required = false) Long parcoursId
     ) {
-        SemesterGradesResponse response = gradeService.getSemesterGrades(studentId, semesterId);
+        SemesterGradesResponse response = gradeService.getSemesterGrades(studentId, semesterId, parcoursId);
         return ResponseEntity.ok(ApiResponse.success(response));
     }
     

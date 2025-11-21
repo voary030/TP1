@@ -29,4 +29,18 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
         @Param("studentId") Long studentId, 
         @Param("semesterIds") List<Long> semesterIds
     );
+    
+    @Query(value = "SELECT n.* FROM note n " +
+           "JOIN Matiere m ON n.id_matiere = m.id_matiere " +
+           "JOIN matiere_parcours mp ON m.id_matiere = mp.id_matiere " +
+           "WHERE n.id_etudiant = :studentId " +
+           "AND m.id_semestre = :semesterId " +
+           "AND mp.id_parcours = :parcoursId " +
+           "AND mp.est_active = TRUE", 
+           nativeQuery = true)
+    List<Note> findByStudentSemesterAndParcours(
+        @Param("studentId") Long studentId,
+        @Param("semesterId") Long semesterId,
+        @Param("parcoursId") Long parcoursId
+    );
 }

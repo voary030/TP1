@@ -75,6 +75,15 @@ CREATE TABLE etudiant_inscription(
    FOREIGN KEY(id_inscription) REFERENCES inscription_semestre(id_inscription)
 );
 
+-- Table des types de matière (DOIT ÊTRE CRÉÉE AVANT Matiere)
+CREATE TABLE type_matiere(
+   id_type_matiere INT AUTO_INCREMENT,
+   code_type VARCHAR(20) UNIQUE,
+   libelle VARCHAR(50),
+   description TEXT,
+   PRIMARY KEY(id_type_matiere)
+);
+
 -- Table des matières
 CREATE TABLE Matiere(
    id_matiere INT,
@@ -88,15 +97,6 @@ CREATE TABLE Matiere(
    FOREIGN KEY(id_semestre) REFERENCES semestre(id_semestre),
    FOREIGN KEY(id_parcours) REFERENCES parcours(id_parcours),
    FOREIGN KEY(id_type_matiere) REFERENCES type_matiere(id_type_matiere)
-);
-
--- Table des types de matière
-CREATE TABLE type_matiere(
-   id_type_matiere INT AUTO_INCREMENT,
-   code_type VARCHAR(20) UNIQUE,
-   libelle VARCHAR(50),
-   description TEXT,
-   PRIMARY KEY(id_type_matiere)
 );
 
 -- Table de liaison Matière - Parcours
@@ -386,6 +386,68 @@ INSERT INTO note (note, id_etudiant, id_matiere, id_session) VALUES
 (13.0, 3, 6, 'S1_2024');  -- ORG101: Techniques de communication
 
 -- ============================================
+-- INSERTION DES NOTES - SEMESTRE 2
+-- ============================================
+
+-- Notes de Jean (S2)
+INSERT INTO note (note, id_etudiant, id_matiere, id_session) VALUES
+(14.5, 1, 7, 'S1_2024'),   -- INF102: Bases de données relationnelles
+(15.0, 1, 8, 'S1_2024'),   -- INF103: Bases de l'administration système
+(13.5, 1, 9, 'S1_2024'),   -- INF105: Maintenance matériel et logiciel
+(14.0, 1, 10, 'S1_2024'),  -- INF106: Compléments de programmation
+(14.5, 1, 11, 'S1_2024'),  -- MTH103: Calcul Vectoriel et Matriciel
+(15.0, 1, 12, 'S1_2024');  -- MTH105: Probabilité et Statistique
+
+-- Notes de Marie (S2)
+INSERT INTO note (note, id_etudiant, id_matiere, id_session) VALUES
+(15.5, 2, 7, 'S1_2024'),   -- INF102: Bases de données relationnelles
+(14.0, 2, 8, 'S1_2024'),   -- INF103: Bases de l'administration système
+(15.5, 2, 9, 'S1_2024'),   -- INF105: Maintenance matériel et logiciel
+(16.0, 2, 10, 'S1_2024'),  -- INF106: Compléments de programmation
+(13.5, 2, 11, 'S1_2024'),  -- MTH103: Calcul Vectoriel et Matriciel
+(15.0, 2, 12, 'S1_2024');  -- MTH105: Probabilité et Statistique
+
+-- Notes de Paul (S2)
+INSERT INTO note (note, id_etudiant, id_matiere, id_session) VALUES
+(13.0, 3, 7, 'S1_2024'),   -- INF102: Bases de données relationnelles
+(14.5, 3, 8, 'S1_2024'),   -- INF103: Bases de l'administration système
+(12.5, 3, 9, 'S1_2024'),   -- INF105: Maintenance matériel et logiciel
+(14.0, 3, 10, 'S1_2024'),  -- INF106: Compléments de programmation
+(14.5, 3, 11, 'S1_2024'),  -- MTH103: Calcul Vectoriel et Matriciel
+(13.5, 3, 12, 'S1_2024');  -- MTH105: Probabilité et Statistique
+
+-- ============================================
+-- INSERTION DES NOTES - SEMESTRE 3
+-- ============================================
+
+-- Notes de Jean (S3)
+INSERT INTO note (note, id_etudiant, id_matiere, id_session) VALUES
+(15.0, 1, 13, 'S1_2024'),  -- INF201: Programmation orientée objet
+(14.0, 1, 14, 'S1_2024'),  -- INF202: Bases de données objets
+(13.5, 1, 15, 'S1_2024'),  -- INF203: Programmation système
+(15.5, 1, 16, 'S1_2024'),  -- INF208: Réseaux informatiques
+(14.0, 1, 17, 'S1_2024'),  -- MTH201: Méthodes numériques
+(13.5, 1, 18, 'S1_2024');  -- ORG201: Bases de gestion
+
+-- Notes de Marie (S3)
+INSERT INTO note (note, id_etudiant, id_matiere, id_session) VALUES
+(16.0, 2, 13, 'S1_2024'),  -- INF201: Programmation orientée objet
+(15.5, 2, 14, 'S1_2024'),  -- INF202: Bases de données objets
+(14.5, 2, 15, 'S1_2024'),  -- INF203: Programmation système
+(14.0, 2, 16, 'S1_2024'),  -- INF208: Réseaux informatiques
+(15.5, 2, 17, 'S1_2024'),  -- MTH201: Méthodes numériques
+(15.0, 2, 18, 'S1_2024');  -- ORG201: Bases de gestion
+
+-- Notes de Paul (S3)
+INSERT INTO note (note, id_etudiant, id_matiere, id_session) VALUES
+(13.0, 3, 13, 'S1_2024'),  -- INF201: Programmation orientée objet
+(14.0, 3, 14, 'S1_2024'),  -- INF202: Bases de données objets
+(13.5, 3, 15, 'S1_2024'),  -- INF203: Programmation système
+(14.5, 3, 16, 'S1_2024'),  -- INF208: Réseaux informatiques
+(13.0, 3, 17, 'S1_2024'),  -- MTH201: Méthodes numériques
+(14.0, 3, 18, 'S1_2024');  -- ORG201: Bases de gestion
+
+-- ============================================
 -- INSERTION DES NOTES - SEMESTRE 4
 -- ============================================
 
@@ -422,6 +484,18 @@ INSERT INTO resultat (id_etudiant, id_semestre, id_parcours, moyenne_generale, c
 (1, 1, NULL, 14.17, 30.0, 30.0, 'Admis', '2024-2025'),  -- Jean S1
 (2, 1, NULL, 14.08, 30.0, 30.0, 'Admis', '2024-2025'),  -- Marie S1
 (3, 1, NULL, 13.67, 30.0, 30.0, 'Admis', '2024-2025');  -- Paul S1
+
+-- Résultats Semestre 2
+INSERT INTO resultat (id_etudiant, id_semestre, id_parcours, moyenne_generale, credit_obtenu, credit_total, statut, annee_universitaire) VALUES
+(1, 2, NULL, 14.42, 30.0, 30.0, 'Admis', '2024-2025'),  -- Jean S2
+(2, 2, NULL, 14.92, 30.0, 30.0, 'Admis', '2024-2025'),  -- Marie S2
+(3, 2, NULL, 13.75, 30.0, 30.0, 'Admis', '2024-2025');  -- Paul S2
+
+-- Résultats Semestre 3
+INSERT INTO resultat (id_etudiant, id_semestre, id_parcours, moyenne_generale, credit_obtenu, credit_total, statut, annee_universitaire) VALUES
+(1, 3, NULL, 14.25, 30.0, 30.0, 'Admis', '2024-2025'),  -- Jean S3
+(2, 3, NULL, 15.08, 30.0, 30.0, 'Admis', '2024-2025'),  -- Marie S3
+(3, 3, NULL, 13.67, 30.0, 30.0, 'Admis', '2024-2025');  -- Paul S3
 
 -- Résultats Semestre 4
 INSERT INTO resultat (id_etudiant, id_semestre, id_parcours, moyenne_generale, credit_obtenu, credit_total, statut, annee_universitaire) VALUES

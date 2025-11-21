@@ -28,6 +28,11 @@ public class GradeService {
     
     @Transactional(readOnly = true)
     public SemesterGradesResponse getSemesterGrades(Long studentId, Long semesterId) {
+        return getSemesterGrades(studentId, semesterId, null);
+    }
+    
+    @Transactional(readOnly = true)
+    public SemesterGradesResponse getSemesterGrades(Long studentId, Long semesterId, Long parcoursId) {
         // Vérifier que l'étudiant existe
         Etudiant etudiant = etudiantRepository.findById(studentId)
                 .orElseThrow(() -> new ApiException(
@@ -36,12 +41,21 @@ public class GradeService {
                 ));
         
         // Récupérer les notes du semestre
-        List<Note> notes = noteRepository.findByStudentAndSemester(studentId, semesterId);
+        List<Note> notes;
+        
+        // Si un parcours est spécifié (pour S4), utiliser la requête avec filtre parcours
+        if (parcoursId != null) {
+            notes = noteRepository.findByStudentSemesterAndParcours(studentId, semesterId, parcoursId);
+        } else {
+            notes = noteRepository.findByStudentAndSemester(studentId, semesterId);
+        }
         
         if (notes.isEmpty()) {
             throw new ApiException(
                     ErrorCodes.SEM_001,
-                    "Aucune note trouvée pour ce semestre"
+                    parcoursId != null 
+                        ? "Aucune note trouvée pour ce parcours dans ce semestre"
+                        : "Aucune note trouvée pour ce semestre"
             );
         }
         

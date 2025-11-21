@@ -106,7 +106,12 @@ const getSemesterId = (semesterName) => {
 }
 
 const viewSemesterGrades = (semesterId) => {
-  router.push(`/students/${student.value.id}/semester/${semesterId}`)
+  // Pour S4, rediriger vers la sélection du parcours
+  if (semesterId === 4) {
+    router.push(`/students/${student.value.id}/semester/4/select-parcours`)
+  } else {
+    router.push(`/students/${student.value.id}/semester/${semesterId}`)
+  }
 }
 
 const viewYearGrades = (yearLevel) => {

@@ -32,6 +32,18 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
+    path: '/students/:studentId/semester/4/select-parcours',
+    name: 'ParcoursSelection',
+    component: () => import('../views/ParcoursSelectionView.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/students/:studentId/semester/:semesterId/parcours/:parcoursId',
+    name: 'SemesterGradesWithParcours',
+    component: () => import('../views/SemesterGradesView.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
     path: '/students/:studentId/semester/:semesterId',
     name: 'SemesterGrades',
     component: () => import('../views/SemesterGradesView.vue'),
