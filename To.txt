@@ -1,0 +1,64 @@
+TO-DO LIST - TP Compléments Web Services (Ranto , Andreas)
+
+## TP1c - ENDPOINT: Authentication (Ranto , Andreas)
+
+
+POST /api/auth/login
+  -Creation de endpoint de login (Ranto)
+  -Valider email/mot de passe (Ranto)
+  -Générer token JWT/session (Andreas)
+  -Retourner token au format JSON avec status, data, error (Andreas)
+  -Gérer erreur: utilisateur inexistant (Ranto)
+  -Gérer erreur: mot de passe incorrect (Ranto)
+  -Gérer erreur: connexion BD (Ranto)
+  -Implémenter middleware de vérification token (Andreas)
+  -Ajouter expiration au token (Andreas)
+
+
+## TP1a - ENDPOINT: Notes par Semestre (Ranto)
+
+GET /api/notes/semestre/{idSemestre}
+  -Creation de endpoint
+  -Valider le token (middleware)
+  -Récupérer les notes de l'étudiant pour 1 semestre
+  -Formatter réponse: { status, data, error, meta }
+  -Utiliser camelCase dans JSON
+  -Gérer erreur: étudiant n'existe pas
+  -Gérer erreur: semestre inexistant
+  -Gérer erreur: connexion BD
+  -Gérer erreur: utilisateur non authentifié
+
+
+## TP1a - ENDPOINT: Notes par Année (Andreas)
+
+GET /api/notes/annee/{annee}
+  -Creation de endpoint (ex: /api/notes/annee/L1)
+  -Valider le token (middleware)
+  -Récupérer les notes de tous les semestres de l'année
+  -Formatter réponse: { status, data, error, meta }
+  -Utiliser camelCase dans JSON
+  -Grouper notes par semestre
+  -Gérer erreur: étudiant n'existe pas
+  -Gérer erreur: année inexistante
+  -Gérer erreur: connexion BD
+  -Gérer erreur: utilisateur non authentifié
+
+
+## TP1b - GESTION DES ERREURS
+
+  -Définir codes d'erreur internes
+  -Implémenter handler global d'erreurs
+  -Tests: étudiant inexistant
+  -Tests: connexion BD échouée
+  -Tests: erreur imprévue
+  -Formater tous les messages d'erreur en JSON
+
+
+## INFRASTRUCTURE & CONFIGURATION
+
+  -Mettre en place structure du projet
+  -Configurer BD (MySQL/PostgreSQL)
+  -Creation de docker-compose.yml
+  -Creation de .env pour variables d'environnement
+  -Initialiser la BD avec le script SQL
+  -Creation de collection Postman complète
