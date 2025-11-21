@@ -223,7 +223,7 @@ public class VueNotesController {
             );
         }
         
-        return authToken.getEtudiant().getIdEtudiant();
+        return authToken.getEtudiant().getIdEtudiant().intValue();
     }
     
     private void validateAdminToken(String authHeader) {

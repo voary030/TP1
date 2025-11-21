@@ -1,0 +1,438 @@
+{
+	"info": {
+		"name": "Notes API - Tests Complets avec Vues",
+		"description": "Collection complète pour tester l'API des notes avec authentification admin/étudiant et vues SQL",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "studentToken",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "adminToken",
+			"value": "",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "1. AUTHENTIFICATION",
+			"item": [
+				{
+					"name": "Login Étudiant - Jean",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    var jsonData = pm.response.json();",
+									"    pm.collectionVariables.set('studentToken', jsonData.data.token);",
+									"    console.log('Token étudiant sauvegardé:', jsonData.data.token);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"jean.dupont@univ.mg\",\n    \"password\": \"jeanpass\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/login",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "auth", "login"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    var jsonData = pm.response.json();",
+									"    pm.collectionVariables.set('adminToken', jsonData.data.token);",
+									"    console.log('Token admin sauvegardé:', jsonData.data.token);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@univ.mg\",\n    \"mot_de_passe\": \"adminpass\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/admin/login",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "auth", "admin", "login"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "2. VUE NOTES - ÉTUDIANT",
+			"item": [
+				{
+					"name": "Mes Notes Détaillées (Toutes)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{studentToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/vue-notes/mes-notes",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "vue-notes", "mes-notes"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mes Notes - Semestre 1",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{studentToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/vue-notes/mes-notes/semestre/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "vue-notes", "mes-notes", "semestre", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mes Notes - Année 2024-2025",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{studentToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/vue-notes/mes-notes/annee/2024-2025",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "vue-notes", "mes-notes", "annee", "2024-2025"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mes Moyennes (Toutes)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{studentToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/vue-notes/mes-moyennes",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "vue-notes", "mes-moyennes"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ma Moyenne - Semestre 1",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{studentToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/vue-notes/mes-moyennes/semestre/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "vue-notes", "mes-moyennes", "semestre", "1"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "3. VUE NOTES - ADMIN",
+			"item": [
+				{
+					"name": "Toutes les Notes",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{adminToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/vue-notes/admin/notes",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "vue-notes", "admin", "notes"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Notes d'un Étudiant (ID=1)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{adminToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/vue-notes/admin/notes/etudiant/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "vue-notes", "admin", "notes", "etudiant", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Notes par Semestre (S1)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{adminToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/vue-notes/admin/notes/semestre/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "vue-notes", "admin", "notes", "semestre", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Notes par Année (2024-2025)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{adminToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/vue-notes/admin/notes/annee/2024-2025",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "vue-notes", "admin", "notes", "annee", "2024-2025"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Toutes les Moyennes",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{adminToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/vue-notes/admin/moyennes",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "vue-notes", "admin", "moyennes"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Moyennes par Semestre (S1)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{adminToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/vue-notes/admin/moyennes/semestre/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "vue-notes", "admin", "moyennes", "semestre", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Moyennes par Année (2024-2025)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{adminToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/vue-notes/admin/moyennes/annee/2024-2025",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "vue-notes", "admin", "moyennes", "annee", "2024-2025"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "4. ADMIN - GESTION ÉTUDIANTS",
+			"item": [
+				{
+					"name": "Créer un Nouvel Étudiant",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{adminToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"numero\": \"ETU004\",\n    \"nom\": \"Nouveau\",\n    \"prenom\": \"Étudiant\",\n    \"email\": \"nouveau.etudiant@univ.mg\",\n    \"mot_de_passe\": \"nouveaupass\",\n    \"id_parcours\": 1\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/admin/students",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "admin", "students"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Notes d'un Étudiant Spécifique",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{adminToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/admin/students/1/grades",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "admin", "students", "1", "grades"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "5. NOTES ORIGINALES (Ancien système)",
+			"item": [
+				{
+					"name": "Notes par Semestre (Ancien)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{studentToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/grades/semester/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "grades", "semester", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Notes par Année (Ancien)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{studentToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/grades/year/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "grades", "year", "1"]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
