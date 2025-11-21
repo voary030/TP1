@@ -2,9 +2,7 @@
   <div class="container">
     <h2 class="page-title">Liste des Semestres</h2>
     
-    <div v-if="loading" class="loading">
-      Chargement...
-    </div>
+    <LoadingSpinner v-if="loading" />
 
     <div v-else class="semesters-grid">
       <div
@@ -27,6 +25,7 @@
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import api from '../services/api'
+import LoadingSpinner from '../Components/shared/LoadingSpinner.vue'
 
 const router = useRouter()
 const semesters = ref([])

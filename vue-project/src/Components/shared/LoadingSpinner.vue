@@ -1,0 +1,45 @@
+<template>
+  <div class="loading">
+    <div class="spinner"></div>
+    <p>{{ message }}</p>
+  </div>
+</template>
+
+<script setup>
+defineProps({
+  message: {
+    type: String,
+    default: 'Chargement...'
+  }
+})
+</script>
+
+<style scoped>
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  gap: 16px;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #007bff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading p {
+  color: #666;
+  font-size: 14px;
+}
+</style>

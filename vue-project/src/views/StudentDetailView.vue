@@ -1,12 +1,8 @@
 <template>
   <div class="container">
-    <button @click="goBack" class="btn btn-secondary mb-20">
-      ← Retour à la liste
-    </button>
+    <BackButton text="Retour à la liste" />
 
-    <div v-if="loading" class="loading">
-      Chargement...
-    </div>
+    <LoadingSpinner v-if="loading" />
 
     <div v-else-if="student" class="student-detail-container">
       <!-- Informations étudiant -->
@@ -92,37 +88,18 @@
 import { ref, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import api from '../services/api'
+import BackButton from '../Components/shared/BackButton.vue'
+import LoadingSpinner from '../Components/shared/LoadingSpinner.vue'
+import { useGradeFormat } from '../composables/useGradeFormat'
+import { useDateFormat } from '../composables/useDateFormat'
 
 const router = useRouter()
 const route = useRoute()
 
 const student = ref(null)
 const loading = ref(true)
-
-const formatDate = (dateString) => {
-  if (!dateString) return '-'
-  const date = new Date(dateString)
-  return date.toLocaleDateString('fr-FR', {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric'
-  })
-}
-
-const formatGrade = (grade) => {
-  return grade ? grade.toFixed(2) : '-'
-}
-
-const getResult = (grade) => {
-  if (!grade) return '-'
-  if (grade >= 10) return 'Admis'
-  return 'Ajourné'
-}
-
-const getResultClass = (grade) => {
-  if (!grade) return ''
-  return grade >= 10 ? 'result-passed' : 'result-failed'
-}
+const { formatGrade, getResult, getResultClass } = useGradeFormat()
+const { formatDate } = useDateFormat()
 
 const getSemesterId = (semesterName) => {
   return parseInt(semesterName.replace('S', ''))
@@ -134,10 +111,6 @@ const viewSemesterGrades = (semesterId) => {
 
 const viewYearGrades = (yearLevel) => {
   router.push(`/students/${student.value.id}/year/${yearLevel}`)
-}
-
-const goBack = () => {
-  router.push('/students')
 }
 
 onMounted(async () => {

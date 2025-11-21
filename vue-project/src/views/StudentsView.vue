@@ -2,9 +2,7 @@
   <div class="container">
     <h2 class="page-title">Liste des Étudiants</h2>
     
-    <div v-if="loading" class="loading">
-      Chargement...
-    </div>
+    <LoadingSpinner v-if="loading" />
 
     <div v-else class="card">
       <table class="table">
@@ -63,14 +61,13 @@
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import api from '../services/api'
+import LoadingSpinner from '../Components/shared/LoadingSpinner.vue'
+import { useGradeFormat } from '../composables/useGradeFormat'
 
 const router = useRouter()
 const students = ref([])
 const loading = ref(true)
-
-const formatGrade = (grade) => {
-  return grade ? grade.toFixed(2) : '-'
-}
+const { formatGrade } = useGradeFormat()
 
 const goToStudent = (studentId) => {
   router.push(`/students/${studentId}`)

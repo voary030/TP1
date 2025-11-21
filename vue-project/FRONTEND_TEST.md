@@ -21,11 +21,9 @@ Ouvre : **http://localhost:5173**
 ### Comptes de test disponibles
 
 ```
-Email                    | Mot de passe | Nom
--------------------------|--------------|----------------
-jean.rakoto@univ.mg      | ETU003103    | Jean Rakoto
-marie.rasoa@univ.mg      | ETU003248    | Marie Rasoa
-paul.rabe@univ.mg        | ETU003103    | Paul Rabe
+Email	Mot de passe	Rôle
+admin@univ.mg	AdminPass123!	ADMIN
+secretaire@univ.mg	SecPass123!	USER
 ```
 
 ### Comment testez l'app

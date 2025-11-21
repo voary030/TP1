@@ -1,112 +1,45 @@
 <template>
   <div class="container">
-    <button @click="goBack" class="btn btn-secondary mb-20">
-      ← Retour
-    </button>
+    <BackButton />
 
-    <div v-if="loading" class="loading">
-      Chargement...
-    </div>
+    <LoadingSpinner v-if="loading" />
 
     <div v-else-if="gradesData" class="transcript-container">
       <!-- En-tête du relevé -->
-      <div class="transcript-header">
-        <h1 class="university-name">IT UNIVERSITY</h1>
-        <h2 class="document-title">RELEVÉ DE NOTES PARTIEL</h2>
-      </div>
+      <TranscriptHeader />
 
       <!-- Informations étudiant -->
-      <div class="student-info-section">
-        <div class="info-row">
-          <span class="info-label">Nom:</span>
-          <span class="info-value">{{ gradesData.student.lastName?.toUpperCase() }}</span>
-        </div>
-        <div class="info-row">
-          <span class="info-label">Prénom(s):</span>
-          <span class="info-value">{{ gradesData.student.firstName }}</span>
-        </div>
-        <div class="info-row">
-          <span class="info-label">N° d'inscription:</span>
-          <span class="info-value">{{ String(gradesData.student.id).padStart(6, '0') }}</span>
-        </div>
-        <div class="info-row">
-          <span class="info-label">Inscrit(e) en</span>
-          <span class="info-value">L{{ getSemesterLevel(gradesData.semester.id) }} - INFORMATIQUE</span>
-        </div>
-        <div v-if="gradesData.track" class="info-row">
-          <span class="info-label">Parcours:</span>
-          <span class="info-value">{{ gradesData.track.name }}</span>
-        </div>
-      </div>
+      <StudentInfoSection 
+        :student="gradesData.student"
+        :level="getSemesterLevel(gradesData.semester.id)"
+        :track="gradesData.track"
+      />
 
       <!-- Tableau des notes -->
       <div class="grades-section">
         <p class="section-intro">a obtenu les notes suivantes:</p>
         
-        <table class="grades-table">
-          <thead>
-            <tr>
-              <th>UE</th>
-              <th>Intitulé</th>
-              <th>Crédits</th>
-              <th>Note/20</th>
-              <th>Résultat</th>
-              <th>Session</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(grade, index) in gradesData.grades" :key="index">
-              <td class="code-cell">{{ grade.subject.code }}</td>
-              <td class="subject-name">{{ grade.subject.name }}</td>
-              <td class="text-center">{{ grade.subject.credits }}</td>
-              <td class="text-center grade-value">{{ formatGrade(grade.grade) }}</td>
-              <td class="text-center">{{ getResult(grade.grade) }}</td>
-              <td class="text-center">{{ formatSession(gradesData.semester.name) }}</td>
-            </tr>
-            <!-- Ligne de sous-total du semestre -->
-            <tr class="semester-total-row">
-              <td colspan="2" class="semester-label">
-                {{ gradesData.semester.name }}
-                <span v-if="gradesData.track"> - option {{ gradesData.track.name.toLowerCase() }}</span>
-              </td>
-              <td class="text-center total-credits">{{ gradesData.summary.totalCredits }}</td>
-              <td class="text-center total-average">{{ formatGrade(gradesData.summary.average) }}</td>
-              <td class="text-center total-result">{{ gradesData.summary.passed ? 'P' : 'AR' }}</td>
-              <td class="text-center">{{ gradesData.summary.passed ? 'Passable' : '' }}</td>
-            </tr>
-          </tbody>
-        </table>
+        <GradesTable
+          :grades="gradesData.grades"
+          :semester-name="gradesData.semester.name"
+          :track-name="gradesData.track?.name"
+          :total-credits="gradesData.summary.totalCredits"
+          :average="gradesData.summary.average"
+          :passed="gradesData.summary.passed"
+          :session="formatSession(gradesData.semester.name)"
+        />
       </div>
 
       <!-- Résumé -->
-      <div class="summary-section">
-        <div class="summary-row">
-          <span class="summary-label">Résultat :</span>
-          <span class="summary-value">Crédits: {{ gradesData.summary.totalCredits }}</span>
-        </div>
-        <div class="summary-row">
-          <span class="summary-label"></span>
-          <span class="summary-value">Moyenne générale: {{ formatGrade(gradesData.summary.average) }}</span>
-        </div>
-        <div class="summary-row">
-          <span class="summary-label"></span>
-          <span class="summary-value">Mention: {{ getMention(gradesData.summary.average) }}</span>
-        </div>
-        <div class="summary-row">
-          <span class="summary-label"></span>
-          <span class="summary-value">{{ gradesData.summary.passed ? 'ADMIS(E)' : 'AJOURNÉ(E)' }}</span>
-        </div>
-        <div class="summary-row">
-          <span class="summary-label"></span>
-          <span class="summary-value">Session: {{ formatSession(gradesData.semester.name) }}</span>
-        </div>
-      </div>
+      <TranscriptSummary
+        :total-credits="gradesData.summary.totalCredits"
+        :average="gradesData.summary.average"
+        :passed="gradesData.summary.passed"
+        :session="formatSession(gradesData.semester.name)"
+      />
 
       <!-- Pied de page -->
-      <div class="transcript-footer">
-        <p>Fait à Antananarivo, le {{ formatDate(new Date()) }}</p>
-        <p>Le Recteur de l'IT University</p>
-      </div>
+      <TranscriptFooter />
     </div>
   </div>
 </template>
@@ -115,54 +48,24 @@
 import { ref, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import api from '../services/api'
+import BackButton from '../Components/shared/BackButton.vue'
+import LoadingSpinner from '../Components/shared/LoadingSpinner.vue'
+import TranscriptHeader from '../Components/shared/TranscriptHeader.vue'
+import StudentInfoSection from '../Components/shared/StudentInfoSection.vue'
+import GradesTable from '../Components/shared/GradesTable.vue'
+import TranscriptSummary from '../Components/shared/TranscriptSummary.vue'
+import TranscriptFooter from '../Components/shared/TranscriptFooter.vue'
+import { useDateFormat } from '../composables/useDateFormat'
 
 const router = useRouter()
 const route = useRoute()
 
 const gradesData = ref(null)
 const loading = ref(true)
-
-const formatGrade = (grade) => {
-  return grade ? grade.toFixed(2) : '-'
-}
-
-const getResult = (grade) => {
-  if (!grade) return 'AR'
-  if (grade >= 16) return 'TB'
-  if (grade >= 14) return 'B'
-  if (grade >= 12) return 'AB'
-  if (grade >= 10) return 'P'
-  return 'AR'
-}
-
-const getMention = (average) => {
-  if (!average) return '-'
-  if (average >= 16) return 'Très Bien'
-  if (average >= 14) return 'Bien'
-  if (average >= 12) return 'Assez Bien'
-  if (average >= 10) return 'Passable'
-  return 'Ajourné'
-}
+const { formatSession } = useDateFormat()
 
 const getSemesterLevel = (semesterId) => {
   return semesterId <= 2 ? 1 : 2
-}
-
-const formatSession = (semesterName) => {
-  const currentYear = new Date().getFullYear()
-  const month = new Date().getMonth()
-  return month < 6 ? `0${month + 1}/${currentYear}` : `${month + 1}/${currentYear}`
-}
-
-const formatDate = (date) => {
-  const day = date.getDate()
-  const month = date.getMonth() + 1
-  const year = date.getFullYear()
-  return `${day}/${month}/${year}`
-}
-
-const goBack = () => {
-  router.go(-1)
 }
 
 onMounted(async () => {

@@ -1,0 +1,36 @@
+/* Styles partagés pour les relevés de notes */
+
+.transcript-container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: white;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.grades-section {
+  margin-bottom: 30px;
+}
+
+.section-intro {
+  margin-bottom: 15px;
+  font-style: italic;
+  color: #555;
+  font-size: 14px;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+@media print {
+  .transcript-container {
+    box-shadow: none;
+    padding: 20px;
+  }
+  
+  .btn {
+    display: none;
+  }
+}
