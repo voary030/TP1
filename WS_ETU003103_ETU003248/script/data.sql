@@ -85,69 +85,74 @@ INSERT INTO type_matiere (id_type_matiere, code_type, libelle, description) VALU
 
 -- Parcours 1: DÉVELOPPEMENT
 -- Matières obligatoires
-INSERT INTO matiere_parcours (id_matiere, id_parcours, id_type_matiere, ordre_affichage, date_debut) VALUES
-(22, 1, 1, 1, '2024-09-01'),  -- INF207: Eléments d'algorithmique (6 crédits)
-(23, 1, 1, 2, '2024-09-01'),  -- INF210: Mini-projet de développement (10 crédits)
-(24, 1, 1, 5, '2024-09-01');  -- MTH203: MAO (4 crédits)
+INSERT INTO matiere_parcours (id_matiere, id_parcours, id_type_matiere, date_debut) VALUES
+(22, 1, 1, '2024-09-01'),  -- INF207: Eléments d'algorithmique (6 crédits)
+(23, 1, 1, '2024-09-01'),  -- INF210: Mini-projet de développement (10 crédits)
+(24, 1, 1, '2024-09-01');  -- MTH203: MAO (4 crédits)
 
 -- Matières optionnelles (1 UE parmi 3)
-INSERT INTO matiere_parcours (id_matiere, id_parcours, id_type_matiere, ordre_affichage, date_debut) VALUES
-(19, 1, 2, 3, '2024-09-01'),  -- INF204: Système d'information géographique (6 crédits)
-(20, 1, 2, 3, '2024-09-01'),  -- INF205: Système d'information (6 crédits)
-(21, 1, 2, 3, '2024-09-01');  -- INF206: Interface Homme/Machine (6 crédits)
+INSERT INTO matiere_parcours (id_matiere, id_parcours, id_type_matiere, date_debut) VALUES
+(19, 1, 2, '2024-09-01'),  -- INF204: Système d'information géographique (6 crédits)
+(20, 1, 2, '2024-09-01'),  -- INF205: Système d'information (6 crédits)
+(21, 1, 2, '2024-09-01');  -- INF206: Interface Homme/Machine (6 crédits)
 
 -- Matières optionnelles mathématiques (1 UE parmi 3)
-INSERT INTO matiere_parcours (id_matiere, id_parcours, id_type_matiere, ordre_affichage, date_debut) VALUES
-(25, 1, 2, 4, '2024-09-01'),  -- MTH204: Géométrie (4 crédits)
-(26, 1, 2, 4, '2024-09-01'),  -- MTH205: Equations différentielles (4 crédits)
-(27, 1, 2, 4, '2024-09-01');  -- MTH206: Optimisation (4 crédits)
+INSERT INTO matiere_parcours (id_matiere, id_parcours, id_type_matiere, date_debut) VALUES
+(25, 1, 2, '2024-09-01'),  -- MTH204: Géométrie (4 crédits)
+(26, 1, 2, '2024-09-01'),  -- MTH205: Equations différentielles (4 crédits)
+(27, 1, 2, '2024-09-01');  -- MTH206: Optimisation (4 crédits)
 
 -- Parcours 2: WEB ET DESIGN
 -- Matières obligatoires
-INSERT INTO matiere_parcours (id_matiere, id_parcours, id_type_matiere, ordre_affichage, date_debut) VALUES
-(30, 2, 1, 1, '2024-09-01'),  -- INF209: Web dynamique (6 crédits)
-(31, 2, 1, 2, '2024-09-01'),  -- INF212: Mini-projet de Web et design (10 crédits)
-(24, 2, 1, 5, '2024-09-01');  -- MTH203: MAO (4 crédits)
+INSERT INTO matiere_parcours (id_matiere, id_parcours, id_type_matiere, date_debut) VALUES
+(30, 2, 1, '2024-09-01'),  -- INF209: Web dynamique (6 crédits)
+(31, 2, 1, '2024-09-01'),  -- INF212: Mini-projet de Web et design (10 crédits)
+(24, 2, 1, '2024-09-01');  -- MTH203: MAO (4 crédits)
 
 -- Matières optionnelles (1 UE parmi 3)
-INSERT INTO matiere_parcours (id_matiere, id_parcours, id_type_matiere, ordre_affichage, date_debut) VALUES
-(19, 2, 2, 3, '2024-09-01'),  -- INF204: Système d'information géographique (6 crédits)
-(20, 2, 2, 3, '2024-09-01'),  -- INF205: Système d'information (6 crédits)
-(21, 2, 2, 3, '2024-09-01');  -- INF206: Interface Homme/Machine (6 crédits)
+INSERT INTO matiere_parcours (id_matiere, id_parcours, id_type_matiere, date_debut) VALUES
+(19, 2, 2, '2024-09-01'),  -- INF204: Système d'information géographique (6 crédits)
+(20, 2, 2, '2024-09-01'),  -- INF205: Système d'information (6 crédits)
+(21, 2, 2, '2024-09-01');  -- INF206: Interface Homme/Machine (6 crédits)
 
 -- Matières optionnelles mathématiques (1 UE parmi 3)
-INSERT INTO matiere_parcours (id_matiere, id_parcours, id_type_matiere, ordre_affichage, date_debut) VALUES
-(29, 2, 2, 4, '2024-09-01'),  -- MTH202: Analyse des données (4 crédits)
-(25, 2, 2, 4, '2024-09-01'),  -- MTH204: Géométrie (4 crédits)
-(27, 2, 2, 4, '2024-09-01');  -- MTH206: Optimisation (4 crédits)
+INSERT INTO matiere_parcours (id_matiere, id_parcours, id_type_matiere, date_debut) VALUES
+(29, 2, 2, '2024-09-01'),  -- MTH202: Analyse des données (4 crédits)
+(25, 2, 2, '2024-09-01'),  -- MTH204: Géométrie (4 crédits)
+(27, 2, 2, '2024-09-01');  -- MTH206: Optimisation (4 crédits)
 
 -- Parcours 3: BASES DE DONNÉES ET RÉSEAUX
 -- Matières obligatoires
-INSERT INTO matiere_parcours (id_matiere, id_parcours, id_type_matiere, ordre_affichage, date_debut) VALUES
-(20, 3, 1, 1, '2024-09-01'),  -- INF205: Système d'information (6 crédits)
-(28, 3, 1, 2, '2024-09-01'),  -- INF211: Mini-projet BDD et/ou réseaux (10 crédits)
-(24, 3, 1, 5, '2024-09-01');  -- MTH203: MAO (4 crédits)
+INSERT INTO matiere_parcours (id_matiere, id_parcours, id_type_matiere, date_debut) VALUES
+(20, 3, 1, '2024-09-01'),  -- INF205: Système d'information (6 crédits)
+(28, 3, 1, '2024-09-01'),  -- INF211: Mini-projet BDD et/ou réseaux (10 crédits)
+(24, 3, 1, '2024-09-01');  -- MTH203: MAO (4 crédits)
 
 -- Matières optionnelles (1 UE parmi 3)
-INSERT INTO matiere_parcours (id_matiere, id_parcours, id_type_matiere, ordre_affichage, date_debut) VALUES
-(19, 3, 2, 3, '2024-09-01'),  -- INF204: Système d'information géographique (6 crédits)
-(21, 3, 2, 3, '2024-09-01'),  -- INF206: Interface Homme/Machine (6 crédits)
-(22, 3, 2, 3, '2024-09-01');  -- INF207: Eléments d'algorithmique (6 crédits)
+INSERT INTO matiere_parcours (id_matiere, id_parcours, id_type_matiere, date_debut) VALUES
+(19, 3, 2, '2024-09-01'),  -- INF204: Système d'information géographique (6 crédits)
+(21, 3, 2, '2024-09-01'),  -- INF206: Interface Homme/Machine (6 crédits)
+(22, 3, 2, '2024-09-01');  -- INF207: Eléments d'algorithmique (6 crédits)
 
 -- Matières optionnelles mathématiques (1 UE parmi 3)
-INSERT INTO matiere_parcours (id_matiere, id_parcours, id_type_matiere, ordre_affichage, date_debut) VALUES
-(29, 3, 2, 4, '2024-09-01'),  -- MTH202: Analyse des données (4 crédits)
-(26, 3, 2, 4, '2024-09-01'),  -- MTH205: Equations différentielles (4 crédits)
-(27, 3, 2, 4, '2024-09-01');  -- MTH206: Optimisation (4 crédits)
+INSERT INTO matiere_parcours (id_matiere, id_parcours, id_type_matiere, date_debut) VALUES
+(29, 3, 2, '2024-09-01'),  -- MTH202: Analyse des données (4 crédits)
+(26, 3, 2, '2024-09-01'),  -- MTH205: Equations différentielles (4 crédits)
+(27, 3, 2, '2024-09-01');  -- MTH206: Optimisation (4 crédits)
 
 -- ============================================
 -- INSERTION DES ÉTUDIANTS
 -- ============================================
 
-INSERT INTO Etudiant (id_etudiant, nom, prenom, date_naissance, email, mot_de_passe) VALUES
-(1, 'Rakoto', 'Jean', '2002-05-15', 'jean.rakoto@univ.mg', '$2a$10$XYZ123'),  -- Hash bcrypt
-(2, 'Rasoa', 'Marie', '2003-08-20', 'marie.rasoa@univ.mg', '$2a$10$ABC456'),
-(3, 'Rabe', 'Paul', '2002-12-10', 'paul.rabe@univ.mg', '$2a$10$DEF789');
+-- Insertion des utilisateurs admin
+INSERT INTO user (id_user, nom, prenom, email, mot_de_passe, role, est_actif, date_creation) VALUES
+(1, 'Admin', 'Système', 'admin@univ.mg', 'adminpass', 'ADMIN', true, NOW()),
+(2, 'Directeur', 'Pédagogique', 'directeur@univ.mg', 'dirpass', 'ADMIN', true, NOW());
+
+INSERT INTO Etudiant (id_etudiant, nom, prenom, date_naissance, email, mot_de_passe, id_user_createur, date_inscription) VALUES
+(1, 'Rakoto', 'Jean', '2002-05-15', 'jean.rakoto@univ.mg', 'jeanpass', 1, NOW()),
+(2, 'Rasoa', 'Marie', '2003-08-20', 'marie.rasoa@univ.mg', 'mariepass', 1, NOW()),
+(3, 'Rabe', 'Paul', '2002-12-10', 'paul.rabe@univ.mg', 'paulpass', 1, NOW());
 
 -- ============================================
 -- INSCRIPTIONS DES ÉTUDIANTS

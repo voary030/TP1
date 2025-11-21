@@ -16,7 +16,6 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"// Sauvegarder le token automatiquement",
 									"if (pm.response.code === 200) {",
 									"    var jsonData = pm.response.json();",
 									"    if (jsonData.status === 'success' && jsonData.data.token) {",
@@ -25,7 +24,6 @@
 									"    }",
 									"}",
 									"",
-									"// Tests",
 									"pm.test('Status code is 200', function () {",
 									"    pm.response.to.have.status(200);",
 									"});",
@@ -54,7 +52,7 @@
 						],
 						"body": {
 							"mode": "raw",
-										"raw": "{\n  \"email\": \"jean.rakoto@univ.mg\",\n  \"password\": \"jeanpass\"\n}"
+							"raw": "{\n  \"email\": \"jean.rakoto@univ.mg\",\n  \"password\": \"jeanpass\"\n}"
 						},
 						"url": {
 							"raw": "{{baseUrl}}/api/auth/login?email=jean.rakoto@univ.mg&password=jeanpass",
@@ -101,7 +99,7 @@
 					],
 					"request": {
 						"method": "POST",
-									"raw": "{\n  \"email\": \"marie.rasoa@univ.mg\",\n  \"password\": \"mariepass\"\n}"
+						"header": [
 							{
 								"key": "Content-Type",
 								"value": "application/json"
@@ -114,25 +112,80 @@
 						"url": {
 							"raw": "{{baseUrl}}/api/auth/login?email=marie.rasoa@univ.mg&password=mariepass",
 							"host": [
-										{
-											"key": "email",
-											"value": "marie.rasoa@univ.mg"
-										},
-										{
-											"key": "password",
-											"value": "mariepass"
-										}
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							],
+							"query": [
 								{
 									"key": "email",
 									"value": "marie.rasoa@univ.mg"
 								},
 								{
 									"key": "password",
-									"value": "password123"
+									"value": "mariepass"
 								}
 							]
 						},
 						"description": "Authentification de l'étudiante Marie Rasoa (parcours Web)"
+					},
+					"response": []
+				},
+				{
+					"name": "Login - Paul (BDD et Réseaux)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    var jsonData = pm.response.json();",
+									"    if (jsonData.status === 'success' && jsonData.data.token) {",
+									"        pm.environment.set('authToken', jsonData.data.token);",
+									"    }",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"paul.rabe@univ.mg\",\n  \"password\": \"paulpass\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/login?email=paul.rabe@univ.mg&password=paulpass",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "paul.rabe@univ.mg"
+								},
+								{
+									"key": "password",
+									"value": "paulpass"
+								}
+							]
+						},
+						"description": "Authentification de l'étudiant Paul Rabe (parcours BDD et Réseaux)"
 					},
 					"response": []
 				},
@@ -163,7 +216,7 @@
 					],
 					"request": {
 						"method": "POST",
-									"raw": "{\n  \"email\": \"paul.rabe@univ.mg\",\n  \"password\": \"paulpass\"\n}"
+						"header": [
 							{
 								"key": "Content-Type",
 								"value": "application/json"
@@ -176,14 +229,14 @@
 						"url": {
 							"raw": "{{baseUrl}}/api/auth/login",
 							"host": [
-										{
-											"key": "email",
-											"value": "paul.rabe@univ.mg"
-										},
-										{
-											"key": "password",
-											"value": "paulpass"
-										}
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						},
 						"description": "Test de gestion d'erreur: mauvais mot de passe"
 					},
 					"response": []

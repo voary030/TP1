@@ -25,6 +25,13 @@ public class AuthToken {
     @JoinColumn(name = "id_etudiant")
     private Etudiant etudiant;
     
+    @ManyToOne
+    @JoinColumn(name = "id_user")
+    private User user;
+    
+    @Column(name = "user_type", length = 20, nullable = false)
+    private String userType;  // 'ETUDIANT' ou 'ADMIN'
+    
     @Column(name = "date_creation")
     private LocalDateTime dateCreation;
     

@@ -31,4 +31,11 @@ public class Etudiant {
     
     @Column(name = "mot_de_passe", length = 255)
     private String motDePasse;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_user_createur")
+    private User userCreateur;
+    
+    @Column(name = "date_inscription")
+    private java.time.LocalDateTime dateInscription;
 }

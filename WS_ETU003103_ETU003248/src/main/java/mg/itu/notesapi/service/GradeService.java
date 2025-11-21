@@ -234,4 +234,145 @@ public class GradeService {
                 .summary(summaryInfo)
                 .build();
     }
+    
+    @Transactional(readOnly = true)
+    public List<SemesterGradesResponse> getGradesByStudentId(Integer studentId) {
+        // Récupérer toutes les notes d'un étudiant
+        List<Note> notes = noteRepository.findAll().stream()
+                .filter(note -> note.getEtudiant().getIdEtudiant().equals(studentId))
+                .collect(Collectors.toList());
+        
+        if (notes.isEmpty()) {
+            throw new ApiException(
+                    ErrorCodes.STU_001,
+                    "Aucune note trouvée pour cet étudiant"
+            );
+        }
+        
+        // Grouper par semestre
+        return notes.stream()
+                .collect(Collectors.groupingBy(note -> note.getMatiere().getSemestre().getIdSemestre()))
+                .entrySet().stream()
+                .map(entry -> buildSemesterResponse(entry.getValue()))
+                .collect(Collectors.toList());
+    }
+    
+    @Transactional(readOnly = true)
+    public List<SemesterGradesResponse> getAllGrades(Integer semestre, Integer annee) {
+        List<Note> notes;
+        
+        if (semestre != null) {
+            // Filtrer par semestre
+            notes = noteRepository.findAll().stream()
+                    .filter(note -> note.getMatiere().getSemestre().getIdSemestre().equals(semestre.longValue()))
+                    .collect(Collectors.toList());
+        } else if (annee != null) {
+            // Filtrer par année
+            Long semester1Id = (long) (annee * 2 - 1);
+            Long semester2Id = (long) (annee * 2);
+            notes = noteRepository.findAll().stream()
+                    .filter(note -> {
+                        Long semId = note.getMatiere().getSemestre().getIdSemestre();
+                        return semId.equals(semester1Id) || semId.equals(semester2Id);
+                    })
+                    .collect(Collectors.toList());
+        } else {
+            // Toutes les notes
+            notes = noteRepository.findAll();
+        }
+        
+        if (notes.isEmpty()) {
+            throw new ApiException(
+                    ErrorCodes.STU_001,
+                    "Aucune note trouvée"
+            );
+        }
+        
+        // Grouper par étudiant et semestre
+        return notes.stream()
+                .collect(Collectors.groupingBy(note -> 
+                    note.getEtudiant().getIdEtudiant() + "-" + 
+                    note.getMatiere().getSemestre().getIdSemestre()
+                ))
+                .values().stream()
+                .map(this::buildSemesterResponse)
+                .collect(Collectors.toList());
+    }
+    
+    private SemesterGradesResponse buildSemesterResponse(List<Note> notes) {
+        if (notes.isEmpty()) {
+            return null;
+        }
+        
+        Note firstNote = notes.get(0);
+        
+        // Construire les informations de l'étudiant
+        SemesterGradesResponse.StudentInfo studentInfo = SemesterGradesResponse.StudentInfo.builder()
+                .id(firstNote.getEtudiant().getIdEtudiant())
+                .firstName(firstNote.getEtudiant().getPrenom())
+                .lastName(firstNote.getEtudiant().getNom())
+                .email(firstNote.getEtudiant().getEmail())
+                .build();
+        
+        // Construire les informations du semestre
+        SemesterGradesResponse.SemesterInfo semesterInfo = SemesterGradesResponse.SemesterInfo.builder()
+                .id(firstNote.getMatiere().getSemestre().getIdSemestre())
+                .name(firstNote.getMatiere().getSemestre().getLibelle())
+                .build();
+        
+        // Construire les informations du parcours
+        SemesterGradesResponse.TrackInfo trackInfo = null;
+        if (firstNote.getMatiere().getParcours() != null) {
+            trackInfo = SemesterGradesResponse.TrackInfo.builder()
+                    .id(firstNote.getMatiere().getParcours().getIdParcours())
+                    .name(firstNote.getMatiere().getParcours().getLibelle())
+                    .build();
+        }
+        
+        // Construire la liste des notes
+        List<SemesterGradesResponse.GradeInfo> gradeInfos = notes.stream()
+                .map(note -> {
+                    SemesterGradesResponse.SubjectInfo subjectInfo = SemesterGradesResponse.SubjectInfo.builder()
+                            .id(note.getMatiere().getIdMatiere())
+                            .code(note.getMatiere().getCodeMatiere())
+                            .name(note.getMatiere().getLibelle())
+                            .credits(note.getMatiere().getCredit())
+                            .type(note.getMatiere().getTypeMatiere() != null ? 
+                                  note.getMatiere().getTypeMatiere().getLibelle() : "N/A")
+                            .build();
+                    
+                    return SemesterGradesResponse.GradeInfo.builder()
+                            .subject(subjectInfo)
+                            .grade(note.getNote())
+                            .build();
+                })
+                .collect(Collectors.toList());
+        
+        // Calculer le résumé
+        BigDecimal totalCredits = notes.stream()
+                .map(n -> n.getMatiere().getCredit())
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        
+        BigDecimal weightedSum = notes.stream()
+                .map(n -> n.getNote().multiply(n.getMatiere().getCredit()))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        
+        BigDecimal average = totalCredits.compareTo(BigDecimal.ZERO) > 0
+                ? weightedSum.divide(totalCredits, 2, RoundingMode.HALF_UP)
+                : BigDecimal.ZERO;
+        
+        SemesterGradesResponse.SummaryInfo summaryInfo = SemesterGradesResponse.SummaryInfo.builder()
+                .totalCredits(totalCredits)
+                .average(average)
+                .passed(average.compareTo(new BigDecimal("10")) >= 0)
+                .build();
+        
+        return SemesterGradesResponse.builder()
+                .student(studentInfo)
+                .semester(semesterInfo)
+                .track(trackInfo)
+                .grades(gradeInfos)
+                .summary(summaryInfo)
+                .build();
+    }
 }

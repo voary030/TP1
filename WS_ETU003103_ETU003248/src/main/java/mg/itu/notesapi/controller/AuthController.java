@@ -2,6 +2,7 @@ package mg.itu.notesapi.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import mg.itu.notesapi.dto.AdminLoginRequest;
 import mg.itu.notesapi.dto.ApiResponse;
 import mg.itu.notesapi.dto.LoginRequest;
 import mg.itu.notesapi.dto.LoginResponse;
@@ -35,6 +36,28 @@ public class AuthController {
         }
         
         LoginResponse response = authService.login(loginRequest);
+        return ResponseEntity.ok(ApiResponse.success(response));
+    }
+    
+    @PostMapping("/admin/login")
+    public ResponseEntity<ApiResponse<LoginResponse>> adminLogin(
+            @RequestParam(required = false) String email,
+            @RequestParam(required = false) String mot_de_passe,
+            @RequestBody(required = false) AdminLoginRequest request) {
+        
+        // Accepter les credentials soit dans l'URL (query params) soit dans le body
+        AdminLoginRequest loginRequest;
+        if (email != null && mot_de_passe != null) {
+            // Credentials dans l'URL
+            loginRequest = new AdminLoginRequest(email, mot_de_passe);
+        } else if (request != null) {
+            // Credentials dans le body
+            loginRequest = request;
+        } else {
+            throw new IllegalArgumentException("Email et mot de passe requis");
+        }
+        
+        LoginResponse response = authService.adminLogin(loginRequest);
         return ResponseEntity.ok(ApiResponse.success(response));
     }
 }
