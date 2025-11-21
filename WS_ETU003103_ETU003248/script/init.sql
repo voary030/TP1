@@ -125,18 +125,30 @@ CREATE TABLE resultat(
    FOREIGN KEY(id_parcours) REFERENCES parcours(id_parcours)
 );
 
+CREATE TABLE users (
+   id_user INT AUTO_INCREMENT,
+   username VARCHAR(100) UNIQUE NOT NULL,
+   email VARCHAR(150) UNIQUE NOT NULL,
+   mot_de_passe VARCHAR(255) NOT NULL,
+   role VARCHAR(30) NOT NULL,   -- ADMIN, ETUDIANT, ENSEIGNANT, etc.
+   est_actif BOOLEAN DEFAULT TRUE,
+   PRIMARY KEY(id_user)
+);
+
+
 -- Table des tokens d'authentification
 CREATE TABLE auth_token(
    id_token INT AUTO_INCREMENT,
    token VARCHAR(255) NOT NULL,
-   id_etudiant INT NOT NULL,
+   id_user INT NOT NULL,
    date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
    date_expiration TIMESTAMP NOT NULL,
    est_actif BOOLEAN DEFAULT TRUE,
    PRIMARY KEY(id_token),
    UNIQUE(token),
-   FOREIGN KEY(id_etudiant) REFERENCES Etudiant(id_etudiant)
+   FOREIGN KEY(id_user) REFERENCES users(id_user)
 );
+
 
 -- Index pour améliorer les performances
 CREATE INDEX idx_note_etudiant ON note(id_etudiant);

@@ -22,8 +22,8 @@ services:
       timeout: 5s
       retries: 5
 
-  # Application Web Service
-  app:
+  # Application API Spring Boot
+  api:
     build:
       context: .
       dockerfile: Dockerfile
@@ -39,14 +39,27 @@ services:
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
       JWT_SECRET: ${JWT_SECRET}
-      API_PORT: ${API_PORT}
+      SERVER_PORT: ${API_PORT}
     ports:
       - "${API_PORT}:${API_PORT}"
     networks:
       - notes_network
-    volumes:
-      - ./src:/app/src  # Pour le développement avec hot reload
-    command: npm start  # Ajuster selon votre technologie
+
+  # Application Frontend Vue.js
+  frontend:
+    build:
+      context: ../vue-project
+      dockerfile: Dockerfile
+    container_name: notes_frontend
+    restart: always
+    depends_on:
+      - api
+    ports:
+      - "8080:80"
+    networks:
+      - notes_network
+    environment:
+      - VITE_API_URL=http://localhost:${API_PORT}
 
 networks:
   notes_network:
